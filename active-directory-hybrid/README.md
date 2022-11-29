@@ -10,3 +10,7 @@
   * 以 VNET peering 模擬 S2S VPN 串連地端網路與雲端網路。
 * 目標
   * Domain Controller 關機後，使用者仍可透過 Azure AD DS 認證遠端登入 Domain Computer。
+## Lab1 - 建立地端模擬環境
+## Lab2 - 建立 Azure AD DS
+## Lab3 - 安裝 Azure AD Connect
+## Lab4 - 將 Domain Computer 加入雲端網域
