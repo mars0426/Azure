@@ -23,7 +23,9 @@
 		* 點選「Next」直到 Server Roles，勾選「Active Directory Domain Services」，繼續點選「Next」直到 Confirmation，點選「Install」
 		* ![2022-11-29_191205](https://user-images.githubusercontent.com/42570850/204514663-8e389ec9-126b-4fd4-890a-f1d1bba42f17.png)
 		* 完成回到 Server Manager，點選右上角黃色驚嘆號，點選「Promote this server to a domain controller」
-		* 
+		* ![2022-11-29_191409](https://user-images.githubusercontent.com/42570850/204516204-2c7d07d0-d5e3-4419-b1ee-72087b4f81b4.png)
+		* 選擇「Add a new forest」，輸入 Root domain name
+		
 ## Lab2 - 建立 Azure AD DS
 ## Lab3 - 安裝 Azure AD Connect
 ## Lab4 - 將 Domain Computer 加入雲端網域
