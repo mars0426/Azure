@@ -26,7 +26,7 @@
 		* ![2022-11-29_191409](https://user-images.githubusercontent.com/42570850/204516204-2c7d07d0-d5e3-4419-b1ee-72087b4f81b4.png)
 		* 選擇「Add a new forest」，Root domain 輸入「chtdnadmin.tw」，點選「Next」
 		* ![2022-11-29_192250](https://user-images.githubusercontent.com/42570850/204516975-9d619634-7523-403d-961e-6a9b7c8aa8f0.png)
-		* 輸入 Password、Confirm password，點選「Next」直到 Prerequisites Check，點選「Install」，安裝完成後自動重啟
+		* Password、Confirm password 輸入「Active@dHybr1d」，點選「Next」直到 Prerequisites Check，點選「Install」，安裝完成後自動重啟
 2. 建立 Domain Computer
 	* 新建 virtual machine
 		* (參考建立 Domain Controller) 選取您的 Subscription，Resource group 選擇「active-directory-hybrid」，Virtual machine name 輸入「dcomputer」，Region 選擇「East Asia」
