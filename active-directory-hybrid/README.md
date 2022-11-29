@@ -15,13 +15,13 @@
 	* 新建 virtual machine
 		* 選取您的 Subscription，新建 Resource group，Resource group name 輸入「active-directory-hybrid」，Virtual machine name 輸入「dcontroller」，Region 選擇「East Asia」
 		* ![2022-11-29_182834](https://user-images.githubusercontent.com/42570850/204505318-5f3f0834-19a4-40fd-94a5-8728ebd17672.png)
-		* Image 選擇「Windows Server 2016 Datacenter - Gen2」，輸入 Username、Password、Confirm password，點選「Review + create」，接著點選「Create」
+		* Image 選擇「Windows Server 2016 Datacenter - Gen2」，Username 輸入「onpremuser1」、Password、Confirm password 輸入「Active@dHybr1d」，點選「Review + create」，接著點選「Create」
 		* ![2022-11-29_183226](https://user-images.githubusercontent.com/42570850/204506737-eea10eb5-e399-4ba2-8c8e-f74fb35307a3.png)
 	* 升級 domain controller
 		* RDP 登入 dcontroller，開啟 Server Manager，點選「Add roles and features」
 		* ![2022-11-29_185712](https://user-images.githubusercontent.com/42570850/204511776-45cc692b-1219-4ce2-a8f4-d871940070d0.png)
 		* 點選「Next」直到 Server Roles，勾選「Active Directory Domain Services」，繼續點選「Next」直到 Confirmation，點選「Install」
-		* ![2022-11-29_191205](https://user-images.githubusercontent.com/42570850/204514663-8e389ec9-126b-4fd4-890a-f1d1bba42f17.png)
+		* ![2022-11-30_045641](https://user-images.githubusercontent.com/42570850/204646125-3981bd26-e463-4c0d-a777-1564db980cc8.png)
 		* 完成後回到 Server Manager，點選右上角黃色驚嘆號，點選「Promote this server to a domain controller」
 		* ![2022-11-29_191409](https://user-images.githubusercontent.com/42570850/204516204-2c7d07d0-d5e3-4419-b1ee-72087b4f81b4.png)
 		* 選擇「Add a new forest」，Root domain 輸入「chtdnadmin.tw」，點選「Next」
@@ -30,7 +30,7 @@
 2. 建立 Domain Computer
 	* 新建 virtual machine
 		* (參考建立 Domain Controller) 選取您的 Subscription，Resource group 選擇「active-directory-hybrid」，Virtual machine name 輸入「dcomputer」，Region 選擇「East Asia」
-		* Image 選擇「Windows Server 2016 Datacenter - Gen2」，輸入 Username、Password、Confirm password，點選「Review + create」，接著點選「Create」
+		* Image 選擇「Windows Server 2016 Datacenter - Gen2」，Username 輸入「onpremuser2」、Password、Confirm password 輸入「Active@dHybr1d」，點選「Review + create」，接著點選「Create」
 	* 加入 domain
 		* RDP 登入 dcomputer，變更網卡設定，Preferred DNS Server 輸入「10.0.0.4」（dcontroller 的 IP），點選「OK」，點選「Close」，重啟 dcomputer
 		* ![2022-11-29_194714](https://user-images.githubusercontent.com/42570850/204521652-9a273931-d7cd-4bf8-a669-820c7fcfc468.png)
