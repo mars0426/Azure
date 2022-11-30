@@ -40,7 +40,7 @@
 		* ![2022-11-29_195603](https://user-images.githubusercontent.com/42570850/204523229-3e4147a4-9622-49fc-8ba4-bea1adba71f9.png)
 		* Username 輸入「onpremuser1」，Password「Active@dHybr1d」輸入，點選「OK」，出現「Welcome to the chtdnadmin.tw domain」訊息，點選「OK」，重啟 dcomputer
 	* 測試 domain 帳號登入
-		* RDP 登入 dcontroller，開啟 Active Directory Users and Computers，點選 Create a new user 圖示，First name 輸入「mars」，User logon name 輸入「mars」，點選「Next」，Password、Confirm password 輸入「Active@dHybr1d」，取消勾選 「User must change password at next logon」，點選「Next」，點選「Finish」
+		* 使用帳號 onpremuser1 遠端登入 dcontroller，開啟 Active Directory Users and Computers，點選 Create a new user 圖示，First name 輸入「mars」，User logon name 輸入「mars」，點選「Next」，Password、Confirm password 輸入「Active@dHybr1d」，取消勾選 「User must change password at next logon」，點選「Next」，點選「Finish」
 		* ![2022-11-29_200720](https://user-images.githubusercontent.com/42570850/204525585-10671852-3e10-42d3-a308-d723933991ee.png)
 		* 雙擊剛新增的 user，切換到「Member of」，點選「Add」，object name 輸入「Domain Admins」，點選「OK」
 		* 再次點選「Add」，object name 輸入「Enterprise Admins」，點選「OK」，再次點選「OK」關閉 Properties 視窗
@@ -73,7 +73,14 @@
 	* 登入 Azure Portal，進入 Azure Active Directory，點選左側「Users」，可以看到從地端模擬環境同步到雲端的使用者
 	* ![2022-11-29_220700](https://user-images.githubusercontent.com/42570850/204550876-1709311d-f7f8-40f8-98c7-6d9ae198bb20.png)
 ## Lab4 - 將 Domain Computer 加入雲端網域
-1. 加入雲端網域
+1. temp
+	* 使用帳號 chtdnadmin.tw\mars 遠端登入 dcomputer，變更網卡設定，Alternate DNS Server 輸入「10.1.0.4」（Azure AD DS 的 IP），點選「OK」，點選「Close」，重啟 dcomputer
+	* ![2022-11-30_093154](https://user-images.githubusercontent.com/42570850/204685659-85eb3717-1f24-4e09-9630-497185cf8bb6.jpg)
+	* 使用帳號 chtdnadmin.tw\mars 遠端登入 dcomputer，確認可成功登入
+	* 退出 dcomputer 遠端登入，將 dcontroller 關機，再次使用帳號 chtdnadmin.tw\mars 遠端登入 dcomputer，出現訊息「The security database...」，無法登入
+	* ![2022-11-30_094245](https://user-images.githubusercontent.com/42570850/204687141-a6b93043-2b3e-4445-a397-d576b88f39b7.jpg)
+	* 
+3. 加入雲端網域
 	* 使用帳號 chtdnadmin.tw\mars 遠端登入 dcomputer，退出 chtdnadmin.tw 網域，重啟 dcomputer
 	* 使用帳號 onpremuser2 遠端登入 dcomputer，將 Preferred DNS Server 改成 10.1.0.4，重啟 onpremuser2
 	* 使用帳號 onpremuser2 遠端登入 dcomputer，加入 chtdnadmin.tw 網域（加入時需要輸入帳號 mars 及其密碼），重啟 dcomputer
@@ -82,5 +89,5 @@
 	* 點選「Add」，object name 輸入「mars」，點選「Check Name」（需要輸入帳號 mars 及其密碼），點選「OK」，點選「OK」
 	* ![2022-11-29_225429](https://user-images.githubusercontent.com/42570850/204563240-1b781bda-da4c-4b5a-b236-c3d119f56ce2.png)
 	* 關閉 dcomputer 的遠端連線，此時就可使用 chtdnadmin.tw\mars 遠端登入 dcomputer
-２. 設定 DNS
+4. 設定 DNS
 	* 使用帳號 onpremuser2 遠端登入 dcomputer，將 Preferred DNS Server 改成 10.0.0.4，Alternate DNS Server 改成 10.1.0.4，重啟 onpremuser2
