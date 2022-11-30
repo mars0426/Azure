@@ -20,7 +20,7 @@
 	* 升級 domain controller
 		* 使用帳號 onpremuser1 遠端登入 dcontroller，開啟 Server Manager，點選「Add roles and features」
 			![2022-11-29_185712](https://user-images.githubusercontent.com/42570850/204511776-45cc692b-1219-4ce2-a8f4-d871940070d0.png)
-		* 123123
+		* 點選「Next」直到 Server Roles，勾選「Active Directory Domain Services」，繼續點選「Next」直到 Confirmation，點選「Install」
 			![2022-11-30_045641](https://user-images.githubusercontent.com/42570850/204646125-3981bd26-e463-4c0d-a777-1564db980cc8.png)
 		* 完成後回到 Server Manager，點選右上角黃色驚嘆號，點選「Promote this server to a domain controller」
 			![2022-11-29_191409](https://user-images.githubusercontent.com/42570850/204516204-2c7d07d0-d5e3-4419-b1ee-72087b4f81b4.png)
