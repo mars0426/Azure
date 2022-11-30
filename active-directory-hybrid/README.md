@@ -29,7 +29,9 @@
 			![2022-11-30_045641](https://user-images.githubusercontent.com/42570850/204646125-3981bd26-e463-4c0d-a777-1564db980cc8.png)
 		
 		* 完成後回到 Server Manager，點選右上角黃色驚嘆號，點選「Promote this server to a domain controller」
+		
 			![2022-11-29_191409](https://user-images.githubusercontent.com/42570850/204516204-2c7d07d0-d5e3-4419-b1ee-72087b4f81b4.png)
+		
 		* 選擇「Add a new forest」，Root domain 輸入「chtdnadmin.tw」，點選「Next」
 		
 			![2022-11-29_192250](https://user-images.githubusercontent.com/42570850/204516975-9d619634-7523-403d-961e-6a9b7c8aa8f0.png)
@@ -45,7 +47,9 @@
 			![2022-11-29_194714](https://user-images.githubusercontent.com/42570850/204521652-9a273931-d7cd-4bf8-a669-820c7fcfc468.png)
 		
 		* 使用帳號 onpremuser2 遠端登入 dcomputer，開啟 Control Panel，點選 System and Security，點選 System，點選「Change settings」
+		
 			![2022-11-29_195412](https://user-images.githubusercontent.com/42570850/204522497-f4004d81-8e91-45f1-b683-027892e9023a.png)
+		
 		* 點選「Change」，選擇「Domain」，輸入「chtdnadmin.tw」，點選「OK」
 		
 			![2022-11-29_195603](https://user-images.githubusercontent.com/42570850/204523229-3e4147a4-9622-49fc-8ba4-bea1adba71f9.png)
