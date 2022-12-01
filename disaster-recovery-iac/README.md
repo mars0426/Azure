@@ -7,20 +7,17 @@
   * 當災難發生時，備援點的 VM 才會被建立並開機
 ## Lab1 - ARM
 1. 建置主站點
-	* 登入 Azure Portal，新建 Resource Group，名稱輸入「Source-RG」，Region 選擇 Japan East，點選「Review + create」，接著點選「Create」
+	* 登入 Azure Portal，新建 Resource Group，名稱輸入「SourceRG」，Region 選擇 Japan East，點選「Review + create」，接著點選「Create」
 	
 	![2022-12-01_133505](https://user-images.githubusercontent.com/42570850/204974193-fb8433b1-f274-496e-b4db-39e14d899978.jpg)
   
 	* 點擊下方按鈕
 	
 	[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fmars0426%2FAzure-Labs%2Fmain%2Fdisaster-recovery-iac%2Fdr-source.json)
-
+	
+	* Resource group 選擇「SourceRG」，點選「Review + create」，接著點選「Create」
 2. 建置備援點
-	* 登入 Azure Portal，新建 Resource Group，名稱輸入「Target-RG」，Region 選擇 Southeast Asia，點選「Review + create」，接著點選「Create」
-	* 進入 Target-RG，新增 Template deployment 資源，點選「Create」
-	* 點選「Build your own template in the editor」
-	* 將下方程式碼複製到編輯區，然後選點「Save」，點選「Review + create」，接著點選「Create」
-'''json
-
-'''
+	* 登入 Azure Portal，新建 Resource Group，名稱輸入「TargetRG」，Region 選擇 Southeast Asia，點選「Review + create」，接著點選「Create」
+	* 點擊下方按鈕
+	* Resource group 選擇「SourceRG」，點選「Review + create」，接著點選「Create」
 ## Lab2 - Terraform
