@@ -24,3 +24,5 @@
 	
 	* Resource group 選擇「TargetRG」，點選「Review + create」，接著點選「Create」
 ## Lab2 - Terraform
+1. 將 modules 資料夾、main.tf、variables.tf 下載至本地資料夾
+2. 依序執行 terraform init、terraform plan、terraform apply 指令
