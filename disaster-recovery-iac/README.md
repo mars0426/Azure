@@ -22,5 +22,5 @@
 	
 	[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fmars0426%2FAzure-Labs%2Fmain%2Fdisaster-recovery-iac%2Fdr-target.json)
 	
-	* Resource group 選擇「SourceRG」，點選「Review + create」，接著點選「Create」
+	* Resource group 選擇「TargetRG」，點選「Review + create」，接著點選「Create」
 ## Lab2 - Terraform
