@@ -1,0 +1,301 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "sourceRGName": {
+            "type": "string",
+            "defaultValue": "SourceRG"
+        },
+        "sourceVNetName": {
+            "type": "string",
+            "defaultValue": "SourceVNet"
+        },
+        "sourceVMName": {
+            "type": "string",
+            "defaultValue": "SourceVM"
+        },
+        "sourceLocation": {
+            "type": "string",
+            "defaultValue": "Japan East"
+        },
+        "targetLocation": {
+            "type": "string",
+            "defaultValue": "Southeast Asia"
+        }
+    },
+    "variables": {
+        "targetVNetName": "TargetVNet",
+        "recoveryVaultName": "recoveryvault",
+        "cacheStorageAccountName": "marscachestorageaccount",
+        "sourceFabricName": "[concat(variables('recoveryVaultName'), '/', 'source-fabric')]",
+        "targetFabricName": "[concat(variables('recoveryVaultName'), '/', 'target-fabric')]",
+        "sourceFabricId": "[resourceId('Microsoft.RecoveryServices/vaults/replicationFabrics', variables('recoveryVaultName'), 'source-fabric')]",
+        "targetFabricId": "[resourceId('Microsoft.RecoveryServices/vaults/replicationFabrics', variables('recoveryVaultName'), 'target-fabric')]",
+        "sourceContainerName": "[concat(variables('sourceFabricName'), '/', 'source-container')]",
+        "targetContainerName": "[concat(variables('targetFabricName'), '/', 'target-container')]",
+        "sourceContainerId": "[resourceId('Microsoft.RecoveryServices/vaults/replicationFabrics/replicationProtectionContainers', variables('recoveryVaultName'), 'source-fabric', 'source-container')]",
+        "targetContainerId": "[resourceId('Microsoft.RecoveryServices/vaults/replicationFabrics/replicationProtectionContainers', variables('recoveryVaultName'), 'target-fabric', 'target-container')]",
+        "sourceContainerMappingName": "[concat(variables('sourceContainerName'), '/', 'source-24-hour-retention-policy')]",
+        "targetContainerMappingName": "[concat(variables('targetContainerName'), '/', 'target-24-hour-retention-policy')]",
+        "sourceContainerMappingId": "[resourceId('Microsoft.RecoveryServices/vaults/replicationFabrics/replicationProtectionContainers/replicationProtectionContainerMappings', variables('recoveryVaultName'), 'source-fabric', 'source-container', 'source-24-hour-retention-policy')]",
+        "sourcevNetMappingName": "[concat(variables('sourceFabricName'), '/azureNetwork/', 'source-target-VNET-mapping')]",
+        "targetvNetMappingName": "[concat(variables('targetFabricName'), '/azureNetwork/', 'target-source-VNET-mapping')]",
+        "sourcevNetMappingId": "[resourceId('Microsoft.RecoveryServices/vaults/replicationFabrics/replicationNetworks/replicationNetworkMappings', variables('recoveryVaultName'), 'source-fabric', 'AzureNetwork', 'source-target-VNET-mapping')]",
+        "targetvNetMappingId": "[resourceId('Microsoft.RecoveryServices/vaults/replicationFabrics/replicationNetworks/replicationNetworkMappings', variables('recoveryVaultName'), 'target-fabric', 'AzureNetwork', 'target-source-VNET-mapping')]"
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Network/VirtualNetworks",
+            "apiVersion": "2021-01-01",
+            "name": "[variables('targetVNetName')]",
+            "location": "[resourceGroup().location]",
+            "dependsOn": [],
+            "tags": {},
+            "properties": {
+                "addressSpace": {
+                    "addressPrefixes": [
+                        "10.1.0.0/16"
+                    ]
+                },
+                "subnets": [
+                    {
+                        "name": "default",
+                        "properties": {
+                            "addressPrefix": "10.1.0.0/24"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "type": "Microsoft.RecoveryServices/vaults",
+            "apiVersion": "2022-02-01",
+            "name": "[variables('recoveryVaultName')]",
+            "location": "[resourceGroup().location]",
+            "sku": {
+                "name": "RS0",
+                "tier": "Standard"
+            },
+            "properties": {}
+        },
+        {
+            "type": "Microsoft.RecoveryServices/vaults/backupstorageconfig",
+            "apiVersion": "2022-02-01",
+            "name": "[concat(variables('recoveryVaultName'), '/vaultstorageconfig')]",
+            "properties": {
+                "StorageModelType": "LocallyRedundant"
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.RecoveryServices/vaults', variables('recoveryVaultName'))]"
+            ]
+        },
+        {
+            // Replication Fabric - Source Side
+            "type": "Microsoft.RecoveryServices/vaults/replicationFabrics",
+            "apiVersion": "2018-01-10",
+            "name": "[variables('sourceFabricName')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.RecoveryServices/vaults', variables('recoveryVaultName'))]"
+            ],
+            "properties": {
+                "customDetails": {
+                    "instanceType": "Azure",
+                    "location": "[parameters('sourceLocation')]"
+                }
+            }
+        },
+        {
+            // Replication Fabric - Target Side
+            "type": "Microsoft.RecoveryServices/vaults/replicationFabrics",
+            "apiVersion": "2018-01-10",
+            "name": "[variables('targetFabricName')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.RecoveryServices/vaults', variables('recoveryVaultName'))]"
+            ],
+            "properties": {
+                "customDetails": {
+                    "instanceType": "Azure",
+                    "location": "[resourceGroup().location]"
+                }
+            }
+        },
+        {
+            // Replication Container - Source Side
+            "type": "Microsoft.RecoveryServices/vaults/replicationFabrics/replicationProtectionContainers",
+            "apiVersion": "2018-01-10",
+            "name": "[variables('sourceContainerName')]",
+            "dependsOn": [
+                "[variables('sourceFabricId')]"
+            ],
+            "properties": {
+                "providerSpecificDetails": [
+                    {
+                        "instanceType": "A2A"
+                    }
+                ]
+            }
+        },
+        {
+            // Replication Container - Target Side
+            "type": "Microsoft.RecoveryServices/vaults/replicationFabrics/replicationProtectionContainers",
+            "apiVersion": "2018-01-10",
+            "name": "[variables('targetContainerName')]",
+            "dependsOn": [
+                "[variables('targetFabricId')]"
+            ],
+            "properties": {
+                "providerSpecificDetails": [
+                    {
+                        "instanceType": "A2A"
+                    }
+                ]
+            }
+        },
+        {
+            // Replication Policy - matches the ASR default
+            "type": "Microsoft.RecoveryServices/vaults/replicationPolicies",
+            "apiVersion": "2018-01-10",
+            "name": "[concat(variables('recoveryVaultName'), '/24-hour-retention-policy')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.RecoveryServices/vaults', variables('recoveryVaultName'))]"
+            ],
+            "properties": {
+                "providerSpecificInput": {
+                    "instanceType": "A2A",
+                    "appConsistentFrequencyInMinutes": 240,
+                    "crashConsistentFrequencyInMinutes": 5,
+                    "recoveryPointHistory": 1440,
+                    "multiVmSyncStatus": "Enable"
+                }
+            }
+        },
+        {
+            // Replication Protection Container Mapping - Source Side
+            "type": "Microsoft.RecoveryServices/vaults/replicationFabrics/replicationProtectionContainers/replicationProtectionContainerMappings",
+            "apiVersion": "2018-01-10",
+            "name": "[variables('sourceContainerMappingName')]",
+            "dependsOn": [
+                "[variables('sourceContainerId')]",
+                "[variables('targetContainerId')]",
+                "[resourceId('Microsoft.RecoveryServices/vaults/replicationPolicies', variables('recoveryVaultName'), '24-hour-retention-policy')]"
+            ],
+            "properties": {
+                "targetProtectionContainerId": "[variables('targetContainerId')]",
+                "policyId": "[resourceId('Microsoft.RecoveryServices/vaults/replicationPolicies', variables('recoveryVaultName'), '24-hour-retention-policy')]",
+                "providerSpecificInput": {
+                    "instanceType": "A2A"
+                }
+            }
+        },
+        {
+            // Replication Protection Container Mapping - Target Side
+            "type": "Microsoft.RecoveryServices/vaults/replicationFabrics/replicationProtectionContainers/replicationProtectionContainerMappings",
+            "apiVersion": "2018-01-10",
+            "name": "[variables('targetContainerMappingName')]",
+            "dependsOn": [
+                "[variables('sourceContainerMappingId')]",
+                "[resourceId('Microsoft.RecoveryServices/vaults/replicationPolicies', variables('recoveryVaultName'), '24-hour-retention-policy')]"
+            ],
+            "properties": {
+                "targetProtectionContainerId": "[variables('sourceContainerId')]",
+                "policyId": "[resourceId('Microsoft.RecoveryServices/vaults/replicationPolicies', variables('recoveryVaultName'), '24-hour-retention-policy')]",
+                "providerSpecificInput": {
+                    "instanceType": "A2A"
+                }
+            }
+        },
+        {
+            // Replication Network Mapping - Source Side
+            "type": "Microsoft.RecoveryServices/vaults/replicationFabrics/replicationNetworks/replicationNetworkMappings",
+            "apiVersion": "2018-07-10",
+            "name": "[variables('sourcevNetMappingName')]",
+            "dependsOn": [
+                "[variables('sourceFabricId')]",
+                "[variables('targetFabricId')]"
+            ],
+            "properties": {
+                "recoveryFabricName": "target-fabric",
+                "recoveryNetworkId": "[resourceId(resourceGroup().name, 'Microsoft.Network/virtualNetworks', variables('targetVNetName'))]",
+                "fabricSpecificDetails": {
+                    "instanceType": "AzureToAzure",
+                    "primaryNetworkId": "[resourceId(parameters('sourceRGName'), 'Microsoft.Network/virtualNetworks', parameters('sourceVNETName'))]"
+                }
+            }
+        },
+        {
+            // Replication Network Mapping - Target Side
+            "type": "Microsoft.RecoveryServices/vaults/replicationFabrics/replicationNetworks/replicationNetworkMappings",
+            "apiVersion": "2018-07-10",
+            "name": "[variables('targetvNetMappingName')]",
+            "dependsOn": [
+                "[variables('sourcevNetMappingId')]",
+                "[variables('sourceFabricId')]",
+                "[variables('targetFabricId')]"
+            ],
+            "properties": {
+                "recoveryFabricName": "source-fabric",
+                "recoveryNetworkId": "[resourceId(parameters('sourceRGName'), 'Microsoft.Network/virtualNetworks', parameters('sourceVNETName'))]",
+                "fabricSpecificDetails": {
+                    "instanceType": "AzureToAzure",
+                    "primaryNetworkId": "[resourceId(resourceGroup().name, 'Microsoft.Network/virtualNetworks', variables('targetVNetName'))]"
+                }
+            }
+        },
+        {
+            // Cache Storage Account
+            // Site Recovery needs extra storage account called cache storage in the source region.
+            // All the changes happening on the source VMs are tracked and sent to cache storage account before replicating those to the target location.
+            "type": "Microsoft.Storage/storageAccounts",
+            "apiVersion": "2019-04-01",
+            "name": "[variables('cacheStorageAccountName')]",
+            "location": "[parameters('sourceLocation')]",
+            "sku": {
+                "name": "Standard_LRS"
+            },
+            "kind": "StorageV2",
+            "properties": {}
+        },
+        {
+            // Replicated VM
+            "type": "Microsoft.RecoveryServices/vaults/replicationFabrics/replicationProtectionContainers/replicationProtectedItems",
+            "apiVersion": "2018-01-10",
+            "name": "[concat(variables('recoveryVaultName'), '/', 'source-fabric', '/', 'source-container/', parameters('sourceVMName'))]",
+            "dependsOn": [
+                "[variables('sourceContainerId')]",
+                "[variables('targetContainerId')]",
+                "[variables('sourcevNetMappingId')]",
+                "[variables('targetvNetMappingId')]",
+                "[resourceId('Microsoft.RecoveryServices/vaults/replicationPolicies', variables('recoveryVaultName'), '24-hour-retention-policy')]"
+            ],
+            "properties": {
+                "policyId": "[resourceId('Microsoft.RecoveryServices/vaults/replicationPolicies', variables('recoveryVaultName'), '24-hour-retention-policy')]",
+                "providerSpecificDetails": {
+                    "instanceType": "A2A",
+                    "fabricObjectId": "[resourceId(parameters('sourceRGName'), 'Microsoft.Compute/virtualmachines', parameters('sourceVMName'))]",
+                    "recoveryContainerId": "[variables('targetContainerId')]",
+                    "recoveryResourceGroupId": "[concat(subscription().id, '/resourceGroups/', resourceGroup().name)]",
+                    "primaryFabricLocation": "[parameters('sourceLocation')]",
+                    "recoveryFabricLocation": "[parameters('targetLocation')]",
+                    // If your virtual machines use availability sets and not availability zones, use the property below instead of recoveryAvailabilityZone
+                    //"recoveryAvailabilitySetId": "[resourceId(variables('webDestinationResourceGroupName'), 'Microsoft.Compute/availabilitySets',variables('web1').availabilitySet)]",
+                    //"recoveryAvailabilityZone": "[variables('web1').zone]",
+                    "recoveryAzureVMSize": "[reference(resourceId(parameters('sourceRGName'), 'Microsoft.Compute/virtualmachines', parameters('sourceVMName')), '2019-07-01').hardwareprofile.vmSize]",
+                    "recoveryAzureNetworkId": "[resourceId(resourceGroup().name, 'Microsoft.Network/virtualNetworks', variables('targetVNetName'))]",
+                    "recoverySubnetName": "default",
+                    //"recoveryBootDiagStorageAccountId": "[resourceId(parameters('resourceGroups').global.destination,'Microsoft.Storage/storageAccounts',parameters('diagnosticsLogStorageAccountNameDR'))]",
+                    "vmManagedDisks": [
+                        {
+                            // OS Disk, get ID from VM reference
+                            "diskId": "[reference(resourceId(parameters('sourceRGName'), 'Microsoft.Compute/virtualmachines', parameters('sourceVMName')), '2019-07-01').storageProfile.osDisk.managedDisk.id]",
+                            "recoveryResourceGroupId": "[concat(subscription().id, '/resourceGroups/', resourceGroup().name)]",
+                            // To get the disk type, the VM needs to be up. If you always have the same type, it can be changed by a parameter or variable
+                            "recoveryTargetDiskAccountType": "[reference(resourceId(parameters('sourceRGName'), 'Microsoft.Compute/virtualmachines', parameters('sourceVMName')), '2019-07-01').storageProfile.osDisk.managedDisk.storageAccountType]",
+                            "primaryStagingAzureStorageAccountId": "[resourceId('Microsoft.Storage/storageAccounts', variables('cacheStorageAccountName'))]"
+                        }
+                    ]
+                }
+            }
+        }
+    ],
+    "outputs": {}
+}
