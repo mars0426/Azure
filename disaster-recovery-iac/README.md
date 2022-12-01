@@ -13,7 +13,7 @@
   
 	* 點擊下方按鈕
 	
-	[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FAzure%2Fazure-quickstart-templates%2Fmaster%2Fquickstarts%2Fmicrosoft.storage%2Fstorage-account-create%2Fazuredeploy.json)
+	[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://raw.githubusercontent.com/mars0426/Azure-Labs/main/disaster-recovery-iac/dr-source.json)
 
 2. 建置備援點
 	* 登入 Azure Portal，新建 Resource Group，名稱輸入「Target-RG」，Region 選擇 Southeast Asia，點選「Review + create」，接著點選「Create」
