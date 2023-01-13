@@ -4,7 +4,7 @@
 (待補)
 ## Lab1 - 建立黃金映像 (Golden Image)
 1. 建立 Resource group，Resource group name 輸入「AVD-PoC」，Region 選擇「Japan East」
-2. 建立 Virtual machine，Resource group 選擇「AVD-PoC」，，Resource group name 輸入「Golden-Image」，Image 選擇「Windows 10 Enterprise multi-session, version 21H2 + Microsoft 365 Apps」
+2. 建立 Virtual machine，Resource group 選擇「AVD-PoC」，Virtual machine name 輸入「Golden-Image」，Region 選擇「Japan East」，Image 選擇「Windows 10 Enterprise multi-session, version 21H2 + Microsoft 365 Apps」
     ![image](https://user-images.githubusercontent.com/42570850/212196092-63c30c52-49cd-4e41-be5b-89cac9529664.png)
 3. 安裝 language packs
   * 遠端登入 Golden-Image，開啟 Edge 下載 [language packs](https://learn.microsoft.com/en-us/azure/virtual-desktop/language-packs)
@@ -120,3 +120,40 @@
 
     ![image](https://user-images.githubusercontent.com/42570850/212268586-cb85f45c-ea4b-4b3d-8942-954ed40d4336.png)
 
+## Lab3 - 建立 Active Directory Domain Controller，並同步到 Azure Active Directory
+1. 在 Azure Active Directory 新增 custom domain，本文以「chtdnadmin.tw」為例，步驟請參考 <https://learn.microsoft.com/zh-tw/azure/active-directory/fundamentals/add-custom-domain>
+2. 建立 Virtual machine，Resource group 選擇「AVD-PoC」，Virtual machine name 輸入「AD-Controller」，Region 選擇「Japan East」，Image 選擇「Windows Server 2016 Datacenter」，並將其放在 Hub-VNet 中的 AD-Subnet
+3. 登入 AD-Controller，新增 Active Directory Domain Services 角色及管理工具，並新建一個新的 forest
+
+    ![image](https://user-images.githubusercontent.com/42570850/212277947-c14b46d8-aa11-4e9d-983f-dcad3d03c2e3.png)
+
+4. 確認 AD-Controller 的內網 IP（如無意外應是 10.0.0.4），並更新 Hub-VNet 的 DNS 資料
+
+    ![image](https://user-images.githubusercontent.com/42570850/212280613-005fdb0c-664a-40e2-8f89-37b7c6f55620.png)
+
+5. 登入 AD-Controller，新增一個名稱為 avduser1 的使用者
+
+    ![image](https://user-images.githubusercontent.com/42570850/212281466-4a09b748-d53a-4c1c-bc11-f08c62c41261.png)
+
+6. 同步 Active Directory 到 Azure Active Directory
+    * 下載 [Azure AD Connect](https://www.microsoft.com/en-us/download/details.aspx?id=47594)，使用 express settings 模式進行安裝
+
+    ![image](https://user-images.githubusercontent.com/42570850/212283032-c388b171-a75a-41a2-9f68-3933743f72ff.png)
+
+    * 輸入 Azure AD 帳號密碼
+
+    ![image](https://user-images.githubusercontent.com/42570850/212284248-cc69b22c-9873-4940-af7c-1083ea082f78.png)
+
+    * 輸入 Active Directory 帳號密碼
+
+    ![image](https://user-images.githubusercontent.com/42570850/212284581-82e57917-0022-4280-b997-bcb167bca8ed.png)
+
+    * 點選「Install」開始安裝
+
+    ![image](https://user-images.githubusercontent.com/42570850/212284842-df490162-0675-4ab6-862b-aa37762a0bcb.png)
+
+    * 安裝完成後稍候片刻，確認 AD 使用者同步至 Azure AD。如果尚未同步，可執行下列 Powershell 指令
+    ```powershell
+    Start-ADSyncSyncCycle -PolicyType Delta
+    ```
+7. 
