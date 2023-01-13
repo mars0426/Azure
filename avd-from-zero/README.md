@@ -201,7 +201,7 @@ cd C:\AzFilesHybrid\
 ```
 ```powershell
 # Import AzFilesHybrid module
-# 第一次執行時，依提示關閉 PowerShell，再打開後才能執行
+# 第一次執行時，依提示關閉 PowerShell，再次打開後才能執行
 Import-Module -Name AzFilesHybrid
 ```
 
