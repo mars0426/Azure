@@ -302,4 +302,43 @@ Join-AzStorageAccountForAuth `
 
 ![image](https://user-images.githubusercontent.com/42570850/212339838-722dfbfb-b101-4074-9215-274a5929c1a1.png)
 
+* 建立完成後，進入 Host-Pooled，在左方工具列點選「Session hosts」可看到 host 狀態為 Available
+
+![image](https://user-images.githubusercontent.com/42570850/212344527-450194b3-65eb-4864-94e3-80c95e78793f.png)
+
+* 在左方工具列點選「RDP Proterties」，點選「Device direction」，依下圖進行設定後點選「Save」
+
+![image](https://user-images.githubusercontent.com/42570850/212345395-48b40b7a-0094-42cd-9e59-1d0a8f7e8fed.png)
+
+* 在左方工具列點選「Application groups」，點選「Host-Pooled-DAG」，點選「Assignments」，點選「Add」，選取「avduser1」
+
+![image](https://user-images.githubusercontent.com/42570850/212346117-0a10ebb6-f114-4517-803d-c21fd46ca721.png)
+
+3. 下載並安裝 [Remote Destop client](https://go.microsoft.com/fwlink/?linkid=2068602)
+
+4. 點選「訂閱」，輸入帳號 avduser1@chtdnadmin.tw 及密碼，認證成功後可看到 Workspace-Pooled 的內容
+
+![image](https://user-images.githubusercontent.com/42570850/212348393-69c8e7a8-80d9-4d1e-be33-f2dee355aadd.png)
+
+5. 雙擊「SessionDesktop」進行 AD 認證，可勾選「記住我」，下點進入便不用再輸入密碼
+
+![image](https://user-images.githubusercontent.com/42570850/212350212-a3cf7fd6-b5c3-41f9-a7ad-e98b3fd08245.png)
+
+6. 建立 Application group
+* 新建 Application group，Resource group 選擇「AVD-PoC」，Host pool 選擇「Host-Pooled」，Application group name 輸入「Host-Pooled-AppAG」，點選「Next: Applications」
+
+![image](https://user-images.githubusercontent.com/42570850/212351627-6c2fb433-3f0b-482a-bc1a-50c3c60f8071.png)
+
+* 點選「Add applications」，Application 選擇「PowerPoint」，Display name 輸入「PowerPoint」，點選「Save」，點選「Next: Assignments」
+
+![image](https://user-images.githubusercontent.com/42570850/212352245-bc872647-4169-43c8-bb41-5817d91414a9.png)
+
+* 點選「Add Azure AD users or user groups」，選取「avduser1」，點選「Next: Workspace」
+
+![image](https://user-images.githubusercontent.com/42570850/212352733-a997d8e7-b91b-4af9-b9e0-061e7d805ce3.png)
+
+* Register application group 選擇「Yes」，點選「Review + create」→「Create」
+
+![image](https://user-images.githubusercontent.com/42570850/212353028-8f508234-a92f-4b30-96c1-4b14d7700375.png)
+
 
