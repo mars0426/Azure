@@ -10,7 +10,7 @@
   * 遠端登入 Golden-Image，開啟 Edge 下載 [language packs](https://learn.microsoft.com/en-us/azure/virtual-desktop/language-packs)
     ![image](https://user-images.githubusercontent.com/42570850/212198451-01f0f8e2-42ac-4b55-a608-31f3fe30e3ab.png)
   * 依序掛載 Language ISO 與 FOD Disk 1 ISO
-  * 以常用的繁體中文、簡體中文及日文為例，開啟 Powershell 執行以下指令（參考[Dino9021 的部落格](https://blog.dino9021.com/2021/01/azure-windows-10-multi-session-language.html)）
+  * 以常用的繁體中文、簡體中文及日文為例，開啟 PowerShell 執行以下指令（參考[Dino9021 的部落格](https://blog.dino9021.com/2021/01/azure-windows-10-multi-session-language.html)）
   ```powershell
   $LanguageISODrive = 'F:';
   $FODDiskISO = 'G:';
@@ -152,7 +152,7 @@
 
     ![image](https://user-images.githubusercontent.com/42570850/212284842-df490162-0675-4ab6-862b-aa37762a0bcb.png)
 
-    * 安裝完成後稍候片刻，確認 AD 使用者同步至 Azure AD。如果尚未同步，可執行下列 Powershell 指令
+    * 安裝完成後稍候片刻，確認 AD 使用者同步至 Azure AD。如果尚未同步，可執行下列 PowerShell 指令
     ```powershell
     Start-ADSyncSyncCycle -PolicyType Delta
     ```
@@ -169,5 +169,67 @@
 ![image](https://user-images.githubusercontent.com/42570850/212296131-22852163-9d7e-4f35-be07-9284ea9898fb.png)
 
 4. 為 Azure Files 啟用 AD 驗證功能
-* 登入 AD-Controller，參考[微軟文件](https://learn.microsoft.com/en-us/azure/storage/files/storage-files-identity-ad-ds-enable#option-one-recommended-use-azfileshybrid-powershell-module) ，下載[AzFilesHybrid module](https://github.com/Azure-Samples/azure-files-samples/releases)
-* 
+* 登入 AD-Controller，參考[微軟文件](https://learn.microsoft.com/en-us/azure/storage/files/storage-files-identity-ad-ds-enable#option-one-recommended-use-azfileshybrid-powershell-module) ，下載[AzFilesHybrid module](https://github.com/Azure-Samples/azure-files-samples/releases)，解壓縮後放在 C:\ 目錄下
+* 開啟 PowerShell，依序執行下列指令
+```powershell
+# Change the execution policy to unblock importing AzFilesHybrid.psm1 module
+Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser
+```
+```powershell
+# Navigate to where AzFilesHybrid is unzipped and stored and run to copy the files into your path
+cd C:\AzFilesHybrid\
+.\CopyToPSPath.ps1 
+```
+```powershell
+# Import AzFilesHybrid module
+# 第一次執行時，依提示關閉 PowerShell，再打開後才能執行
+Import-Module -Name AzFilesHybrid
+```
+
+```powershell
+Install-Module Az
+Import-Module Az
+```
+
+```powershell
+# Login with an Azure AD credential that has either storage account owner or contributor Azure role 
+# assignment. If you are logging into an Azure environment other than Public (ex. AzureUSGovernment) 
+# you will need to specify that.
+# See https://learn.microsoft.com/azure/azure-government/documentation-government-get-started-connect-with-ps
+# for more information.
+Connect-AzAccount
+```
+```powershell
+# Define parameters
+# $StorageAccountName is the name of an existing storage account that you want to join to AD
+# $SamAccountName is the name of the to-be-created AD object, which is used by AD as the logon name 
+# for the object. It must be 20 characters or less and has certain character restrictions. 
+# See https://learn.microsoft.com/windows/win32/adschema/a-samaccountname for more information.
+# 把下面的 <your-subscription-id-here> 換成您的 Subscription ID
+$SubscriptionId = "<your-subscription-id-here>"
+$ResourceGroupName = "AVD-PoC"
+$StorageAccountName = "storageforfslogix"
+```
+```powershell
+# Select the target subscription for the current session
+Select-AzSubscription -SubscriptionId $SubscriptionId 
+```
+```powershell
+# Register the target storage account with your active directory environment under the target OU 
+# (for example: specify the OU with Name as "UserAccounts" or DistinguishedName as 
+# "OU=UserAccounts,DC=CONTOSO,DC=COM"). You can use this PowerShell cmdlet: Get-ADOrganizationalUnit 
+# to find the Name and DistinguishedName of your target OU. If you are using the OU Name, specify it 
+# with -OrganizationalUnitName as shown below. If you are using the OU DistinguishedName, you can set it 
+# with -OrganizationalUnitDistinguishedName. You can choose to provide one of the two names to specify 
+# the target OU. You can choose to create the identity that represents the storage account as either a 
+# Service Logon Account or Computer Account (default parameter value), depending on your AD permissions 
+# and preference. Run Get-Help Join-AzStorageAccountForAuth for more details on this cmdlet.
+
+Join-AzStorageAccountForAuth `
+        -ResourceGroupName $ResourceGroupName `
+        -StorageAccountName $StorageAccountName `
+```
+* 完成後，確認 Azure Files 已啟用 AD 驗證功能
+
+    ![image](https://user-images.githubusercontent.com/42570850/212310915-14d0b2ea-c7e7-43bd-bf74-0aa8eac4d39b.png)
+
