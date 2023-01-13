@@ -341,4 +341,7 @@ Join-AzStorageAccountForAuth `
 
 ![image](https://user-images.githubusercontent.com/42570850/212353028-8f508234-a92f-4b30-96c1-4b14d7700375.png)
 
+* 關閉 Remote Destop client，再次開啟後即可看到新增的應用程式
+
+![image](https://user-images.githubusercontent.com/42570850/212353941-a2173e60-4310-4108-81e2-6b8a72a4156c.png)
 
