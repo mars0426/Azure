@@ -3,8 +3,8 @@
 ## 架構
 (待補)
 ## Lab1 - 建立黃金映像 (Golden Image)
-1. 建立 resource group，resource group name 輸入「AVD-PoC」，region 選擇「Japan East」
-2. 建立 virtual machine，resource group 選擇「AVD-PoC」，，resource group name 輸入「Golden-Image」，image 選擇「Windows 10 Enterprise multi-session, version 21H2 + Microsoft 365 Apps」
+1. 建立 Resource group，Resource group name 輸入「AVD-PoC」，Region 選擇「Japan East」
+2. 建立 Virtual machine，Resource group 選擇「AVD-PoC」，，Resource group name 輸入「Golden-Image」，Image 選擇「Windows 10 Enterprise multi-session, version 21H2 + Microsoft 365 Apps」
     ![image](https://user-images.githubusercontent.com/42570850/212196092-63c30c52-49cd-4e41-be5b-89cac9529664.png)
 3. 安裝 language packs
   * 遠端登入 Golden-Image，開啟 Edge 下載 [language packs](https://learn.microsoft.com/en-us/azure/virtual-desktop/language-packs)
@@ -99,5 +99,17 @@
   * 開啟 Settings → Time & Language → Language，確認 language packs 安裝完成
     ![image](https://user-images.githubusercontent.com/42570850/212203394-8586b923-1da1-4054-9715-96a21098301b.png)
 
-  * 卸載 Language ISO 與 FOD Disk 1 ISO，並刪除這兩個 ISO 檔（資源回收桶也清空）
-4. 依實際需求，安裝 LOB (Line of Business) 應用程式，例如 Acrobat Reader、Photoshop、AutoCAD 等
+  * 卸載 Language ISO 與 FOD Disk 1 ISO，並刪除這兩個 ISO 檔
+4. 依實際需求，安裝 LOB (Line of Business) 應用程式及輸入法，例如 Acrobat Reader、Photoshop、AutoCAD 等
+5. 執行 Windows update，確認無任何更新需要安裝
+    ![image](https://user-images.githubusercontent.com/42570850/212209305-a019a1da-20aa-4aca-bf7c-06dacb7ce585.png)
+
+6. 執行 Command Line，輸入下列指令，執行 Sysprep，執行完成後會自動關機
+    ```
+    %WINDIR%\system32\sysprep\sysprep.exe /generalize /shutdown /oobe /mode:vm
+    ```
+7. 到 Azure Portal，進入 Golden-Image 頁面，點選「Stop」，確認 Status 變成「Stopped (deallocated)」
+    ![image](https://user-images.githubusercontent.com/42570850/212209576-bc1ebc9a-1e44-4f07-924a-74e6e2f4e4ac.png)
+8. 點選「Capture」，Share image to Azure compute gallery 選擇「No, capture only a managed image.」，勾選「Automatically delete this virtual machine after creating the image」，點選「Review + create」→「Create」
+    ![image](https://user-images.githubusercontent.com/42570850/212210347-2190b240-389c-4ef1-b117-026f4d367bd4.png)
+
