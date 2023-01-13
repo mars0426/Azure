@@ -104,12 +104,19 @@
 5. 執行 Windows update，確認無任何更新需要安裝
     ![image](https://user-images.githubusercontent.com/42570850/212209305-a019a1da-20aa-4aca-bf7c-06dacb7ce585.png)
 
-6. 執行 Command Line，輸入下列指令，執行 Sysprep，執行完成後會自動關機
+6. 執行 Command Prompt，輸入下列指令，執行 Sysprep，執行完成後會自動關機
     ```
     %WINDIR%\system32\sysprep\sysprep.exe /generalize /shutdown /oobe /mode:vm
     ```
 7. 到 Azure Portal，進入 Golden-Image 頁面，點選「Stop」，確認 Status 變成「Stopped (deallocated)」
     ![image](https://user-images.githubusercontent.com/42570850/212209576-bc1ebc9a-1e44-4f07-924a-74e6e2f4e4ac.png)
-8. 點選「Capture」，Share image to Azure compute gallery 選擇「No, capture only a managed image.」，勾選「Automatically delete this virtual machine after creating the image」，點選「Review + create」→「Create」
+8. 點選「Capture」，Share image to Azure compute gallery 選擇「No, capture only a managed image.」，勾選「Automatically delete this virtual machine after creating the image」，Name 輸入「Golden-Image-AS」，點選「Review + create」→「Create」
     ![image](https://user-images.githubusercontent.com/42570850/212210347-2190b240-389c-4ef1-b117-026f4d367bd4.png)
+9. 將資源群組 AVD-PoC 中除了 Golden-Image-AS 之外的其他資源刪除，只保留 Golden-Image-AS
+## Lab2 - 建立虛擬網路
+1. 建立 Virtual network，Resource group 選擇「AVD-PoC」，Name 輸入「Hub-VNet」，Region 選擇「Japan East」，IPv4 address space 輸入「10.0.0.0/16」，並新增一個 Subnet，Subnet name 輸入「AD-Subnet」，Subnet address range 輸入「10.0.0.0/24」
+2. 建立 Virtual network，Resource group 選擇「AVD-PoC」，Name 輸入「Spoke-VNet」，Region 選擇「Japan East」，IPv4 address space 輸入「10.1.0.0/16」，並新增一個 Subnet，Subnet name 輸入「AVD-Subnet」，Subnet address range 輸入「10.1.0.0/24」
+3. 建立 Virtual network peering，進入 Hub-VNet，在左列功能選單點選「Peerings」，點選「Add」，Peering link name (This virtual network) 輸入「Hub-to-Spoke」，Peering link name (Remote virtual network) 輸入「Spoke-to-Hub」，Virtual Network 選擇「Spoke-VNet」，然後點選「Add」
+
+    ![image](https://user-images.githubusercontent.com/42570850/212268586-cb85f45c-ea4b-4b3d-8942-954ed40d4336.png)
 
