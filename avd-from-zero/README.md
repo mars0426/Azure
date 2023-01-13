@@ -159,4 +159,15 @@
     ![image](https://user-images.githubusercontent.com/42570850/212291566-a2a5e2b2-a751-460f-a74a-909271e8ca5c.png)
 
 ## Lab4 - 設定 FSLogix
+1. 由於本文是以集區 (Pool) 的形態建立工作階段主機，因此需要 Azure Files 來集中存放 FSLogix 的 User profile
+2. 新增 Storage Accounts，Resource group 選擇「AVD-PoC」，Storage account name 輸入「storageforfslogix」，Region 選擇「Japan East」，Redundancy 選擇「LRS」
 
+![image](https://user-images.githubusercontent.com/42570850/212294533-fd9b98d3-32b0-4250-b18b-1a73661755b3.png)
+
+3. 進入 storageforfslogix，在左列功能選單點選「File shares」，點選「＋File share」，Name 輸入「fslogix」，Tier 選擇「Hot」，點選「Create」
+
+![image](https://user-images.githubusercontent.com/42570850/212296131-22852163-9d7e-4f35-be07-9284ea9898fb.png)
+
+4. 為 Azure Files 啟用 AD 驗證功能
+* 登入 AD-Controller，參考[微軟文件](https://learn.microsoft.com/en-us/azure/storage/files/storage-files-identity-ad-ds-enable#option-one-recommended-use-azfileshybrid-powershell-module) ，下載[AzFilesHybrid module](https://github.com/Azure-Samples/azure-files-samples/releases)
+* 
