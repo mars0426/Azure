@@ -150,7 +150,7 @@
 
     ![image](https://user-images.githubusercontent.com/42570850/212280613-005fdb0c-664a-40e2-8f89-37b7c6f55620.png)
 
-5. 登入 AD-Controller，新增一個名稱為 avduser1 的使用者
+5. 登入 AD-Controller，新增一個名稱為 avduser1 的使用者，取消勾選「User must change password at next logon」
 
     ![image](https://user-images.githubusercontent.com/42570850/212281466-4a09b748-d53a-4c1c-bc11-f08c62c41261.png)
 
