@@ -156,4 +156,7 @@
     ```powershell
     Start-ADSyncSyncCycle -PolicyType Delta
     ```
-7. 
+    ![image](https://user-images.githubusercontent.com/42570850/212291566-a2a5e2b2-a751-460f-a74a-909271e8ca5c.png)
+
+## Lab4 - 設定 FSLogix
+
