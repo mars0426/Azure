@@ -4,7 +4,7 @@
 (待補)
 ## Lab1 - 建立黃金映像 (Golden Image)
 1. 建立 Resource group，Resource group name 輸入「AVD-PoC」，Region 選擇「Japan East」
-2. 建立 Virtual machine，Resource group 選擇「AVD-PoC」，Virtual machine name 輸入「Golden-Image」，Region 選擇「Japan East」，Image 選擇「Windows 10 Enterprise multi-session, version 21H2 + Microsoft 365 Apps」
+2. 建立 Virtual machine，Resource group 選擇「AVD-PoC」，Virtual machine name 輸入「Golden-Image」，Region 選擇「Japan East」，Image 選擇「Windows 10 Enterprise multi-session, version 22H2 + Microsoft 365 Apps - x64 Gen2」
     ![image](https://user-images.githubusercontent.com/42570850/212196092-63c30c52-49cd-4e41-be5b-89cac9529664.png)
 3. 安裝 language packs
   * 遠端登入 Golden-Image，開啟 Edge 下載 [language packs](https://learn.microsoft.com/en-us/azure/virtual-desktop/language-packs)
