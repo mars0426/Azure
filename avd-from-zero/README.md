@@ -233,3 +233,73 @@ Join-AzStorageAccountForAuth `
 
     ![image](https://user-images.githubusercontent.com/42570850/212310915-14d0b2ea-c7e7-43bd-bf74-0aa8eac4d39b.png)
 
+5. 設定 Azure Files 權限
+* 進入 storageforfslogix，在左方工具列點選「Access Control (IAM)」，點選「Add」→「Add role assignment」
+
+![image](https://user-images.githubusercontent.com/42570850/212318395-537e713d-9b19-4777-aad1-ecec1c61cc21.png)
+
+* Role 選擇「Storage File Data SMB Share Contributor」，Members 增加「avduser1」，點選「Review + Assign」
+
+![image](https://user-images.githubusercontent.com/42570850/212318851-9e962cfc-bfde-4b72-a783-539579227b67.png)
+
+6.  設定 Azure Files 的 NTFS 權限
+* 進入 fslogix，點選「Connect」
+
+![image](https://user-images.githubusercontent.com/42570850/212319700-3640186f-826e-4840-bb6a-012ecc8bdbfa.png)
+
+* 選擇「Storage account key」，點選「Show Script」，複製這段 Script
+
+![image](https://user-images.githubusercontent.com/42570850/212319981-9682a56c-182b-4c9c-b492-287bed0ff73c.png)
+
+* 登入 AD-Controller，開啟 PowerShell，執行這段 Script，完成後可看到磁碟已掛載
+
+![image](https://user-images.githubusercontent.com/42570850/212320578-8a30768b-090e-437e-9336-3d97673e341d.png)
+
+* 給予 AVD 使用者 Full Control 的 NTFS 權限
+
+![image](https://user-images.githubusercontent.com/42570850/212321119-2e8952fe-41fb-41e6-b7a5-58b860c7111d.png)
+
+7. 設定 Group Policy
+* 參考[微軟文件](https://learn.microsoft.com/en-us/fslogix/use-group-policy-templates-ht)，下載 [FSLogix](https://aka.ms/fslogix_download)，解壓縮後放到 C:\ 目錄下
+* 複製資料夾中的 fslogix.admx 到 C:\Windows\SYSVOL\sysvol\chtdnadmin.tw\Policies\PolicyDefinitions\ 目錄下（把 chtdnadmin.tw 換成您的 domain name，如果沒有 PolicyDefinitions 目錄就新建一個）
+
+![image](https://user-images.githubusercontent.com/42570850/212324971-45d009c0-160f-46e7-a118-8f01bce9c4c0.png)
+
+* 複製資料夾中的 fslogix.adml 到 C:\Windows\SYSVOL\sysvol\chtdnadmin.tw\Policies\PolicyDefinitions\en-US\ 目錄下
+* 在 Active Directory Users and Computers 裡新增一個 Organizational Unit，命名為 AVDPooled
+
+![image](https://user-images.githubusercontent.com/42570850/212326197-dd9dafdb-28d0-4e6e-b57a-7ccf3fb174d6.png)
+
+* 開啟 Group Policy Management，為 AVDPooled 新增一個 GPO，同樣命名為 AVDPooled
+
+![image](https://user-images.githubusercontent.com/42570850/212327917-5daed44c-9e14-4fca-af3a-e376d9df33c6.png)
+
+* 在 AVDPooled 按右鍵點選「Edit」，Computer Configuration > Polocies > Administrative Templates > FSLogix > Profile containers，設定如下
+    * Enabled: Enabed
+    * Outlook Cached Mode: Enabled
+    * Delete Local Profile Whe VHD Should Apply: Enabled
+    * VHD Locations: \\storageforfslogix.file.core.windows.net\fslogix
+![image](https://user-images.githubusercontent.com/42570850/212329916-e0c3ae44-92bb-48eb-8300-247fffb6c458.png)
+
+* 接著到 Computer Configuration > Polocies > Administrative Templates > FSLogix > Profile containers > Container and Directory Naming，設定如下
+    * Volume Type (VHD or VHDX): VHDX
+    * Flip Flop Profile Directory Name: Enabled
+
+![image](https://user-images.githubusercontent.com/42570850/212331640-94c0f431-7bcb-4392-a012-f2b04e140dce.png)
+
+## Lab5 - 建立 Host pool
+1. 將 Spoke-VNet 的 DNS Server 設成 10.0.0.4
+2. 建立 Host pool
+* Resource group 選擇「AVD-PoC」，Host pool name 輸入「Host-Pooled」，Host pool type 選擇「Pooled」，Load balancing algorithm 選擇「Depth-first」，Max session limit 輸入「10」，點選「Next: Virtual Machines」
+
+![image](https://user-images.githubusercontent.com/42570850/212336899-c2f68161-0e4b-4e8b-a1c6-a3c4ad9f02ed.png)
+
+* Add Azure virtual machines 選擇「Yes」，Resource group 選擇「AVD-PoC」，Name prefix 輸入「Host-Pooled」，Virtual machine locaion 選擇「Japan East」，Availability options 選擇「No infrastructure redundancy required」，Image 點選「See all images」，從 My item 選擇「Golden-Image-AS」，Number of VMs 輸入「1」，Boot Diagnostics 選擇「Disable」，Virtual network 選擇「Spoke-VNet」，Subnet 選擇「AVD-Subnet」，Domain to join 選擇 Active Directory，輸入相關帳號密碼後，點選「Next: Workspace」
+
+![image](https://user-images.githubusercontent.com/42570850/212338961-db6ecf52-6126-42ff-9916-6f3c5615d989.png)
+
+* Register desktop add group 選擇「Yes」，點選「Create new」，Workspace name 輸入「Workspace-Pooled」，點選「OK」，接著點選「Review + create」→「Create」
+
+![image](https://user-images.githubusercontent.com/42570850/212339838-722dfbfb-b101-4074-9215-274a5929c1a1.png)
+
+
