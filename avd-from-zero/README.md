@@ -310,9 +310,9 @@ Join-AzStorageAccountForAuth `
 ## Lab5 - 建立 Host pool
 1. 將 Spoke-VNet 的 DNS Server 設成 10.0.0.4
 2. 建立 Host pool
-* Resource group 選擇「AVD-PoC」，Host pool name 輸入「Host-Pooled」，Host pool type 選擇「Pooled」，Load balancing algorithm 選擇「Depth-first」，Max session limit 輸入「10」，點選「Next: Virtual Machines」
+* Resource group 選擇「AVD-PoC」，Host pool name 輸入「Host-Pooled」，Location 輸入「Japan East」，Host pool type 選擇「Pooled」，Load balancing algorithm 選擇「Depth-first」，Max session limit 輸入「10」，點選「Next: Virtual Machines」
 
-![image](https://user-images.githubusercontent.com/42570850/212336899-c2f68161-0e4b-4e8b-a1c6-a3c4ad9f02ed.png)
+![image](https://user-images.githubusercontent.com/42570850/212442408-320ca492-ffe8-4842-8e65-420e8ce7790b.png)
 
 * Add Azure virtual machines 選擇「Yes」，Resource group 選擇「AVD-PoC」，Name prefix 輸入「Host-Pooled」，Virtual machine locaion 選擇「Japan East」，Availability options 選擇「No infrastructure redundancy required」，Image 點選「See all images」，從 My item 選擇「Golden-Image-AS」，Number of VMs 輸入「1」，Boot Diagnostics 選擇「Disable」，Virtual network 選擇「Spoke-VNet」，Subnet 選擇「AVD-Subnet」，Domain to join 選擇 Active Directory，輸入相關帳號密碼後，點選「Next: Workspace」
 
