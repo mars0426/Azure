@@ -206,6 +206,7 @@ Import-Module -Name AzFilesHybrid
 ```
 
 ```powershell
+# Import Az module
 Install-Module Az
 Import-Module Az
 ```
