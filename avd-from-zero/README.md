@@ -294,14 +294,14 @@ Join-AzStorageAccountForAuth `
 
 ![image](https://user-images.githubusercontent.com/42570850/212327917-5daed44c-9e14-4fca-af3a-e376d9df33c6.png)
 
-* 在 AVDPooled 按右鍵點選「Edit」，Computer Configuration > Polocies > Administrative Templates > FSLogix > Profile containers，設定如下
+* 在 AVDPooled 按右鍵點選「Edit」，Computer Configuration > Policies > Administrative Templates > FSLogix > Profile containers，設定如下
     * Enabled: Enabed
     * Outlook Cached Mode: Enabled
     * Delete Local Profile Whe VHD Should Apply: Enabled
-    * VHD Locations: \\storageforfslogix.file.core.windows.net\fslogix
+    * VHD Locations: \\\\storageforfslogix.file.core.windows.net\fslogix
 ![image](https://user-images.githubusercontent.com/42570850/212329916-e0c3ae44-92bb-48eb-8300-247fffb6c458.png)
 
-* 接著到 Computer Configuration > Polocies > Administrative Templates > FSLogix > Profile containers > Container and Directory Naming，設定如下
+* 接著到 Computer Configuration > Policies > Administrative Templates > FSLogix > Profile containers > Container and Directory Naming，設定如下
     * Volume Type (VHD or VHDX): VHDX
     * Flip Flop Profile Directory Name: Enabled
 
