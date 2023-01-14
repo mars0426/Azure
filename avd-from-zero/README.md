@@ -1,7 +1,5 @@
 # 從零開始創建 AVD 環境
 本文透過實際演練，示範如何從零開始創建一整套 AVD (Azure Virtual Desktop) 環境。
-## 架構
-(待補)
 ## Lab1 - 建立黃金映像 (Golden Image)
 1. 建立 Resource group，Resource group name 輸入「AVD-PoC」，Region 選擇「Japan East」
 2. 建立 Virtual machine，Resource group 選擇「AVD-PoC」，Virtual machine name 輸入「Golden-Image」，Region 選擇「Japan East」，Image 選擇「Windows 10 Enterprise multi-session, version 22H2 + Microsoft 365 Apps - x64 Gen2」
