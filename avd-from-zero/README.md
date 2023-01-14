@@ -344,7 +344,11 @@ Join-AzStorageAccountForAuth `
 
 ![image](https://user-images.githubusercontent.com/42570850/212350212-a3cf7fd6-b5c3-41f9-a7ad-e98b3fd08245.png)
 
-6. 建立 Application group
+6. 成功登入後，可以在 fslogix 看到新建立的資料夾，裡面包含 FSLogix 的 VHDX 檔案
+
+![image](https://user-images.githubusercontent.com/42570850/212444102-ddbdd7c9-aff4-4602-a0f1-3bd815d1ef62.png)
+
+7. 建立 Application group
 * 新建 Application group，Resource group 選擇「AVD-PoC」，Host pool 選擇「Host-Pooled」，Application group name 輸入「Host-Pooled-AppAG」，點選「Next: Applications」
 
 ![image](https://user-images.githubusercontent.com/42570850/212351627-6c2fb433-3f0b-482a-bc1a-50c3c60f8071.png)
