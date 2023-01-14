@@ -188,7 +188,7 @@
 ![image](https://user-images.githubusercontent.com/42570850/212296131-22852163-9d7e-4f35-be07-9284ea9898fb.png)
 
 4. 為 Azure Files 啟用 AD 驗證功能
-* 登入 AD-Controller，參考 [Microsoft 文件](https://learn.microsoft.com/en-us/azure/storage/files/storage-files-identity-ad-ds-enable#option-one-recommended-use-azfileshybrid-powershell-module) ，下載[AzFilesHybrid module](https://github.com/Azure-Samples/azure-files-samples/releases)，解壓縮後放在 C:\ 目錄下
+* 登入 AD-Controller，參考 [Microsoft 文件](https://learn.microsoft.com/en-us/azure/storage/files/storage-files-identity-ad-ds-enable#option-one-recommended-use-azfileshybrid-powershell-module) ，下載 [AzFilesHybrid](https://github.com/Azure-Samples/azure-files-samples/releases)，解壓縮後放在 C:\ 目錄下
 * 開啟 PowerShell，依序執行下列指令
 ```powershell
 # Change the execution policy to unblock importing AzFilesHybrid.psm1 module
