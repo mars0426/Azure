@@ -45,20 +45,20 @@
 
 3. Frontends/domains 點選「+」，輸入 Host name，選擇是否要啟用 Session Affinity 或 WAF，點選「Add」
 
-  ![image](https://user-images.githubusercontent.com/42570850/212450362-6e825706-8f3b-486d-876e-4b7376076929.png)
+  ![image](https://user-images.githubusercontent.com/42570850/212450503-66032a5f-b805-4907-998b-f356fe238a17.png)
 
 4. Backend pools 點選 「+」，輸入 Backend pool name，點選「Add a backend」，Backend host type 選擇「Custom host」，Backend host name 輸入 Lab1 複製的網站網址（去掉開頭的 https:// 與結尾的 /），點選「Add」
 
-  ![image](https://user-images.githubusercontent.com/42570850/212450367-cecb5ab4-0fbe-4f48-ae8f-22581d2a0693.png)
+  ![image](https://user-images.githubusercontent.com/42570850/212450507-7afbda66-22e6-4262-9b4e-299a9de9682d.png)
 
-  ![image](https://user-images.githubusercontent.com/42570850/212450373-742b7b14-fb03-4dcf-9bfc-e84159fe028e.png)
+  ![image](https://user-images.githubusercontent.com/42570850/212450508-cbdd7a1e-d1a8-4519-b832-93c8b3f0ae8c.png)
 
 5. Routing rules 點選 「+」，輸入 Name，點選「Add」，點選「Review + create」→「create」
 
-  ![image](https://user-images.githubusercontent.com/42570850/212450387-946fc45a-b8a0-4e37-8c7f-6e65905e43be.png)
+  ![image](https://user-images.githubusercontent.com/42570850/212450510-2dbdadd8-c15d-498e-8672-68f7f84dde64.png)
 
-  ![image](https://user-images.githubusercontent.com/42570850/212450392-5e725875-4c39-4b10-a621-bfe64485cde1.png)
+  ![image](https://user-images.githubusercontent.com/42570850/212450512-c5787d08-c91f-4b65-8c89-2e7f195d239c.png)
 
 6. 建立完成後，開啟瀏覽器，輸入網址 https://[hostname].azurefd.net，即可看到網站的預設網頁
 
-  ![image](https://user-images.githubusercontent.com/42570850/212450399-9ac4f53d-f22a-4bc9-a0c8-f65d287f63ce.png)
+  ![image](https://user-images.githubusercontent.com/42570850/212450515-08619f6f-4f67-44c5-8483-70a30338f1b1.png)
