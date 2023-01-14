@@ -247,7 +247,7 @@ Select-AzSubscription -SubscriptionId $SubscriptionId
 
 Join-AzStorageAccountForAuth `
         -ResourceGroupName $ResourceGroupName `
-        -StorageAccountName $StorageAccountName `
+        -StorageAccountName $StorageAccountName
 ```
 * 完成後，確認 Azure Files 已啟用 AD 驗證功能
 
