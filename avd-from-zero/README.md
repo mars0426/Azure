@@ -188,7 +188,7 @@
 ![image](https://user-images.githubusercontent.com/42570850/212296131-22852163-9d7e-4f35-be07-9284ea9898fb.png)
 
 4. 為 Azure Files 啟用 AD 驗證功能
-* 登入 AD-Controller，參考[微軟文件](https://learn.microsoft.com/en-us/azure/storage/files/storage-files-identity-ad-ds-enable#option-one-recommended-use-azfileshybrid-powershell-module) ，下載[AzFilesHybrid module](https://github.com/Azure-Samples/azure-files-samples/releases)，解壓縮後放在 C:\ 目錄下
+* 登入 AD-Controller，參考 [Microsoft 文件](https://learn.microsoft.com/en-us/azure/storage/files/storage-files-identity-ad-ds-enable#option-one-recommended-use-azfileshybrid-powershell-module) ，下載[AzFilesHybrid module](https://github.com/Azure-Samples/azure-files-samples/releases)，解壓縮後放在 C:\ 目錄下
 * 開啟 PowerShell，依序執行下列指令
 ```powershell
 # Change the execution policy to unblock importing AzFilesHybrid.psm1 module
@@ -279,7 +279,7 @@ Join-AzStorageAccountForAuth `
 ![image](https://user-images.githubusercontent.com/42570850/212321119-2e8952fe-41fb-41e6-b7a5-58b860c7111d.png)
 
 7. 設定 Group Policy
-* 參考[微軟文件](https://learn.microsoft.com/en-us/fslogix/use-group-policy-templates-ht)，下載 [FSLogix](https://aka.ms/fslogix_download)，解壓縮後放到 C:\ 目錄下
+* 參考 [Microsoft 文件](https://learn.microsoft.com/en-us/fslogix/use-group-policy-templates-ht)，下載 [FSLogix](https://aka.ms/fslogix_download)，解壓縮後放到 C:\ 目錄下
 * 複製資料夾中的 fslogix.admx 到 C:\Windows\SYSVOL\sysvol\chtdnadmin.tw\Policies\PolicyDefinitions\ 目錄下（把 chtdnadmin.tw 換成您的 domain name，如果沒有 PolicyDefinitions 目錄就新建一個）
 
 ![image](https://user-images.githubusercontent.com/42570850/212324971-45d009c0-160f-46e7-a118-8f01bce9c4c0.png)
