@@ -338,7 +338,7 @@ Join-AzStorageAccountForAuth `
 
 ![image](https://user-images.githubusercontent.com/42570850/212348393-69c8e7a8-80d9-4d1e-be33-f2dee355aadd.png)
 
-5. 雙擊「SessionDesktop」進行 AD 認證，可勾選「記住我」，下點進入便不用再輸入密碼
+5. 雙擊「SessionDesktop」進行 AD 認證，可勾選「記住我」，下次進入便不用再輸入密碼
 
 ![image](https://user-images.githubusercontent.com/42570850/212350212-a3cf7fd6-b5c3-41f9-a7ad-e98b3fd08245.png)
 
