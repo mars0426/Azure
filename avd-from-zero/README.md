@@ -316,7 +316,7 @@ Join-AzStorageAccountForAuth `
 
 ![image](https://user-images.githubusercontent.com/42570850/213338140-b3bcdc1c-e434-463d-a672-d65b7a7ac084.png)
 
-* Register desktop add group 選擇「Yes」，點選「Create new」，Workspace name 輸入「Workspace-Pooled」，點選「OK」，接著點選「Review + create」→「Create」
+* Register desktop app group 選擇「Yes」，點選「Create new」，Workspace name 輸入「Workspace-Pooled」，點選「OK」，接著點選「Review + create」→「Create」
 
 ![image](https://user-images.githubusercontent.com/42570850/212339838-722dfbfb-b101-4074-9215-274a5929c1a1.png)
 
