@@ -314,7 +314,7 @@ Join-AzStorageAccountForAuth `
 
 * Add Azure virtual machines 選擇「Yes」，Resource group 選擇「AVD-PoC」，Name prefix 輸入「Host-Pooled」，Virtual machine locaion 選擇「Japan East」，Availability options 選擇「No infrastructure redundancy required」，Image 點選「See all images」，從 My item 選擇「Golden-Image-AS」，Number of VMs 輸入「1」，Boot Diagnostics 選擇「Disable」，Virtual network 選擇「Spoke-VNet」，Subnet 選擇「AVD-Subnet」，Domain to join 選擇 Active Directory，輸入 domain 帳號密碼，Specify domain or unit 選擇「Yes」，Domain to join 輸入「chtdnadmin.tw」，Organizational Unit path 輸入「OU=AVDPooled,DC=chtdnadmin,DC=tw」，輸入 admin 帳號密碼，點選「Next: Workspace」
 
-![image](https://user-images.githubusercontent.com/42570850/212442917-9b5c96bc-e78a-49c0-ac3d-067fa0653f97.png)
+![image](https://user-images.githubusercontent.com/42570850/213338140-b3bcdc1c-e434-463d-a672-d65b7a7ac084.png)
 
 * Register desktop add group 選擇「Yes」，點選「Create new」，Workspace name 輸入「Workspace-Pooled」，點選「OK」，接著點選「Review + create」→「Create」
 
