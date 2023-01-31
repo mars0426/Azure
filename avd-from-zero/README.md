@@ -139,7 +139,7 @@
 
 ## Lab3 - 建立 Active Directory Domain Controller，並同步到 Azure Active Directory
 1. 在 Azure Active Directory 新增 custom domain，本文以「chtdnadmin.tw」為例，步驟請參考 <https://learn.microsoft.com/zh-tw/azure/active-directory/fundamentals/add-custom-domain>
-2. 建立 Virtual machine，Resource group 選擇「AVD-PoC」，Virtual machine name 輸入「AD-Controller」，Region 選擇「Japan East」，Image 選擇「Windows Server 2016 Datacenter - 」，並將其放在 Hub-VNet 中的 AD-Subnet
+2. 建立 Virtual machine，Resource group 選擇「AVD-PoC」，Virtual machine name 輸入「AD-Controller」，Region 選擇「Japan East」，Image 選擇「Windows Server 2016 Datacenter - x64 Gen2」，並將其放在 Hub-VNet 中的 AD-Subnet
 3. 登入 AD-Controller，新增 Active Directory Domain Services 角色及管理工具，並建立一個新的 forest
 
     ![image](https://user-images.githubusercontent.com/42570850/212277947-c14b46d8-aa11-4e9d-983f-dcad3d03c2e3.png)
