@@ -381,7 +381,7 @@ Join-AzStorageAccountForAuth `
   * 具備 Privileged Role Administrators 或 Global Administrators 權限（[參考資料](https://learn.microsoft.com/en-us/azure/active-directory/roles/groups-faq-troubleshooting)）
 
   ![image](https://user-images.githubusercontent.com/42570850/216482650-a118507e-918c-45b3-805d-6170bbf66106.png)
-3. 建立 Goleden Image 時有安裝語言包，但是在工作階段主機看不到
+3. 建立 Goleden Image 時有安裝 language packs，但是在工作階段主機看不到
 * 執行 Sysprep 會將 Windows 顯示語言列表清除，可以執行以下 Powershell 指令將其加回
   ```powershell
   $LanguageList = Get-WinUserLanguageList
