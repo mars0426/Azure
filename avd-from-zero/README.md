@@ -367,3 +367,32 @@ Join-AzStorageAccountForAuth `
 
 ![image](https://user-images.githubusercontent.com/42570850/212353941-a2173e60-4310-4108-81e2-6b8a72a4156c.png)
 
+## 常見問題
+1. FSLogix 的配置檔 (VHDX) 未產生
+* 開啟 C:\Program Files\FSLogix\Apps\frxtray.exe，開啟 FSLogix Profile Status 主畫面，點擊「Advanced view」查看 logs
+
+  ![image](https://user-images.githubusercontent.com/42570850/216480998-466f9dfe-71fd-42bf-b355-4a84077eaa91.png)
+  
+* 以上圖為例，原因是 AVD 使用者沒有存取 Azure Storage 的權限，需檢查 Azure Storage 的 Access Control (IAM)，確認 AVD 使用者有 Storage File Data SMB Share Contributor 的權限
+2. 在 Azure AD 設定 Group 的權限，無法套用到 Group 下的 User
+* 必須設定 Group 的「Azure AD roles can be assigned to the group」屬性為「Yes」，才可設定 Group 的權限，此設定只能在新增 Group 時設定，新增後即無法更改。此外，需滿足以下條件才能設定此屬性：
+  * Azure AD 必須是 Premium P1 或 Premium P2，免費版不提供此功能（[參考資料](https://learn.microsoft.com/en-us/azure/active-directory/roles/groups-assign-role)）
+
+  * 具備 Privileged Role Administrators 或 Global Administrators 權限（[參考資料](https://learn.microsoft.com/en-us/azure/active-directory/roles/groups-faq-troubleshooting)）
+
+  ![image](https://user-images.githubusercontent.com/42570850/216482650-a118507e-918c-45b3-805d-6170bbf66106.png)
+3. 建立 Goleden Image 時有安裝言言包，但是在工作階段主機看不到
+* 執行 Sysprep 會將 Windows 顯示語言列表清除，可以執行以下 Powershell 指令將其加回
+  ```powershell
+  $LanguageList = Get-WinUserLanguageList
+  $LanguageList.Add("zh-TW")
+  Set-WinUserLanguageList $LanguageList -force
+
+  $LanguageList = Get-WinUserLanguageList
+  $LanguageList.Add("zh-CN")
+  Set-WinUserLanguageList $LanguageList -force
+
+  $LanguageList = Get-WinUserLanguageList
+  $LanguageList.Add("ja-JP")
+  Set-WinUserLanguageList $LanguageList -force
+  ```
