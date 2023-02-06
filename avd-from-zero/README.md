@@ -14,6 +14,9 @@
   * 依序掛載 Language ISO 與 FOD Disk 1 ISO
   * 以常用的繁體中文、簡體中文及日文為例，開啟 PowerShell 執行以下指令（參考[Dino9021 的部落格](https://blog.dino9021.com/2021/01/azure-windows-10-multi-session-language.html)）
   ```powershell
+  ##Disable Language Pack Cleanup##
+  Disable-ScheduledTask -TaskPath "\Microsoft\Windows\AppxDeploymentClient\" -TaskName "Pre-staged app cleanup"
+  
   $LanguageISODrive = 'F:';
   $FODDiskISO = 'G:';
 
