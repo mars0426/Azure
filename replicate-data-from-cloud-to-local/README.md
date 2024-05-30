@@ -125,9 +125,7 @@ References:\
     Platform -\> Databases -\> SQL -\> pick the MySQL instance -\> Users
     -\> Add User Account and enter the required details:
 
-![Google Cloud SQL Creating a Replication Slave
-User](media/image1.png){width="3.596153762029746in"
-height="2.5339555993000875in"}
+![Picture1](https://github.com/mars0426/Azure-Labs/assets/42570850/9f27bb66-2d6d-4685-99d6-95c12b434458)
 
 The 202.187.194.255 is the slave public IP address located in our
 on-premises that is going to replicate from this instance.
@@ -135,9 +133,7 @@ on-premises that is going to replicate from this instance.
 2.  Configure the client's SSL certificates. Go to Connections -\>
     Configure SSL client certificates -\> Create a client certificate:
 
-![Taking a mysqldump Backup Google Cloud
-SQL](media/image2.png){width="3.8045997375328082in"
-height="5.1025645231846015in"}
+![Picture2](https://github.com/mars0426/Azure-Labs/assets/42570850/37de245d-deed-46d8-ad6e-5e7ba3c6a9eb)
 
 Download the above files (server-ca.pem, client-cert.pem and
 client-key.pem) and store them inside the slave server. To simplify the
