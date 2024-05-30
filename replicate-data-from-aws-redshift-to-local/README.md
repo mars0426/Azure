@@ -22,9 +22,7 @@ MySQL.
 
 Create a new SQL tab and input the following command.
 
-![Import CSV to MySQL via SQL statements in
-Workbench](media/image1.png){width="6.5in"
-height="1.9694444444444446in"}
+![Picture1](https://github.com/mars0426/Azure-Labs/assets/42570850/ae51e4bb-cecb-4240-afb8-1ec14278aa87)
 
 LOAD DATA LOCAL INFILE \'C:/\<PATH TO YOUR FILE\>/concerts-2023.csv\'\
 INTO TABLE concerts2\
