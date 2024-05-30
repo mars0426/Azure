@@ -27,24 +27,20 @@
     VMs in use will be listed. From the list below we see that we need
     to migrate five VMs over.
 
-![A screenshot of a computer Description automatically
-generated](media/image1.png){width="7.5in" height="5.782638888888889in"}
+![Picture1](https://github.com/mars0426/Azure-Labs/assets/42570850/b37ad582-20df-47ac-9de1-9f8f923a87db)
 
 2.  The second step is to stop all the VMs that will be migrated. This
     will bring the service down. To do that, just click on the desired
     VM, and on the new blade click on **Stop** and then **Yes**.
 
-![A screenshot of a computer Description automatically
-generated](media/image2.png){width="7.5in" height="3.071527777777778in"}
+![Picture2](https://github.com/mars0426/Azure-Labs/assets/42570850/fcb44c0a-fa47-47d2-b0c6-f1274c93d418)
 
 3.  The third step is to document the current utilization of memory and
     CPU. This can be accomplished by clicking on the desired VM and then
     clicking on **Overview**. On the new blade that is displayed on the
     right side, we will have the Size, which gives us that information.
 
-![A screenshot of a computer Description automatically
-generated](media/image3.png){width="7.5in"
-height="3.2354166666666666in"}
+![Picture3](https://github.com/mars0426/Azure-Labs/assets/42570850/fdc2d90a-5218-44f3-a3c7-4a1f6f08ef28)
 
 4.  The final step of the assessment is to identify the disk names. This
     can be done by clicking on **Disks**. On the new blade, a list of
@@ -53,17 +49,13 @@ height="3.2354166666666666in"}
     disk name listed on the blade on the right side. (There is a copy
     button available when you select the field.)
 
-![A screenshot of a computer Description automatically
-generated](media/image4.png){width="7.5in"
-height="2.8222222222222224in"}
+![Picture4](https://github.com/mars0426/Azure-Labs/assets/42570850/59a84cf0-d263-4e40-8276-62455ab7ffe6)
 
 The results of the current assessment should be a table like the one
 below, where we have all the information required to create the new VM
 on Viettel VPC and associate the correct disks to them.
 
-![A close-up of a computer Description automatically
-generated](media/image5.png){width="7.260416666666667in"
-height="1.8958333333333333in"}
+![Picture5](https://github.com/mars0426/Azure-Labs/assets/42570850/66c7e0db-4f5a-46cd-ab1c-723b017cfc01)
 
 ## Copy the VHD files
 
@@ -82,16 +74,13 @@ height="1.8958333333333333in"}
     Containers**, and then **vhds**. Select each VHD listed on the right
     side and click **Download**.
 
-![A screenshot of a computer Description automatically
-generated](media/image6.png){width="7.5in"
-height="1.8916666666666666in"}
+![Picture6](https://github.com/mars0426/Azure-Labs/assets/42570850/4ca5c820-bb38-4ade-ab8e-d7612a615526)
 
 Each download will be listed on the bottom right side with its
 respective progress on the copy process. Wait to get all of them
 completed before moving forward to the next phase of the transition.
 
-![A screenshot of a computer program Description automatically
-generated](media/image7.png){width="7.5in" height="2.053472222222222in"}
+![Picture7](https://github.com/mars0426/Azure-Labs/assets/42570850/f60b6693-3593-41fe-9cc3-c48175d947cd)
 
 # Replicate Data from Azure Blob Storage to Viettel S3
 
